@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sxw.dao.IUserDao">
+
+    <resultMap id="user" type="com.sxw.domain.User">
+        <id property="uno" column="uno"/>
+        <result property="uname" column="uname"/>
+        <result property="upass" column="upass"/>
+        <result property="age" column="age"/>
+    </resultMap>
+
+    <select id="findById" resultMap="user">
+        select * from t_user where uno = #{uno}
+    </select>
+
+
+    <!--批量插入-->
+    <insert id="insertUsers">
+        insert into t_user(uname,upass)
+        values
+        <foreach collection="list" separator="," item="user">
+        (#{user.uname},#{user.upass})
+        </foreach>
+    </insert>
+
+    <select id="findAll" resultMap="user">
+        select * from t_user
+    </select>
+
+</mapper>
